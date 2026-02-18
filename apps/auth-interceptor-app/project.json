@@ -1,0 +1,85 @@
+{
+  "name": "auth-interceptor-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/auth-interceptor-app/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/auth-interceptor-app",
+        "browser": "apps/auth-interceptor-app/src/main.ts",
+        "tsConfig": "apps/auth-interceptor-app/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/auth-interceptor-app/public"
+          }
+        ],
+        "styles": ["apps/auth-interceptor-app/src/styles.scss"]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "options": {
+        "host": "127.0.0.1",
+        "port": 4200
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "auth-interceptor-app:build:production"
+        },
+        "development": {
+          "buildTarget": "auth-interceptor-app:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "options": {
+        "configFile": "apps/auth-interceptor-app/vite.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "auth-interceptor-app:build",
+        "staticFilePath": "dist/apps/auth-interceptor-app/browser",
+        "spa": true
+      }
+    }
+  }
+}

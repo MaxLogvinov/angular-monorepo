@@ -1,0 +1,60 @@
+<div class="login-container">
+  <div class="login-card">
+    <h1 class="login-title">Вход в систему</h1>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <label for="username" class="form-label">Логин</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          class="form-input"
+          [class.form-input--error]="
+            loginForm.get('username')?.invalid && loginForm.get('username')?.touched
+          "
+          placeholder="Введите логин"
+          autocomplete="username"
+        />
+        @if (loginForm.get('username')?.invalid && loginForm.get('username')?.touched) {
+          <span class="form-error">Поле обязательно для заполнения</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">Пароль</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          class="form-input"
+          [class.form-input--error]="
+            loginForm.get('password')?.invalid && loginForm.get('password')?.touched
+          "
+          placeholder="Введите пароль"
+          autocomplete="current-password"
+        />
+        @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+          <span class="form-error">Поле обязательно для заполнения</span>
+        }
+      </div>
+
+      @if (errorMessage()) {
+        <div class="alert alert--error">{{ errorMessage() }}</div>
+      }
+
+      <button type="submit" class="btn btn--primary" [disabled]="loginForm.invalid || isLoading()">
+        @if (isLoading()) {
+          <span class="spinner"></span>
+          Вход...
+        } @else {
+          Войти
+        }
+      </button>
+
+      <p class="login-hint">
+        Тестовые данные: <strong>emilys</strong> / <strong>emilyspass</strong>
+      </p>
+    </form>
+  </div>
+</div>

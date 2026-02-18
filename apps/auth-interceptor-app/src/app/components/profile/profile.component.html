@@ -1,0 +1,48 @@
+<div class="profile-container">
+  <div class="profile-card">
+    <div class="profile-header">
+      <h1 class="profile-title">Профиль пользователя</h1>
+      <button class="btn btn--danger" (click)="logout()">Выйти</button>
+    </div>
+
+    @if (isLoading()) {
+      <div class="loading-state">
+        <span class="spinner spinner--large"></span>
+        <p>Загрузка данных...</p>
+      </div>
+    }
+
+    @if (errorMessage()) {
+      <div class="alert alert--error">
+        <p>{{ errorMessage() }}</p>
+        <button class="btn btn--secondary" (click)="loadUser()">Повторить</button>
+      </div>
+    }
+
+    @if (user(); as u) {
+      <div class="user-info">
+        <div class="user-avatar-wrapper">
+          <img [src]="u.image" [alt]="u.firstName + ' ' + u.lastName" class="user-avatar" />
+        </div>
+        <div class="user-details">
+          <div class="info-row">
+            <span class="info-label">Имя:</span>
+            <span class="info-value">{{ u.firstName }} {{ u.lastName }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Логин:</span>
+            <span class="info-value">{{ u.username }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Email:</span>
+            <span class="info-value">{{ u.email }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Пол:</span>
+            <span class="info-value">{{ u.gender }}</span>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

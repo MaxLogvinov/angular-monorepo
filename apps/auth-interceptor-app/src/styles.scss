@@ -1,0 +1,103 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background: #f0f2f5;
+  color: #1a1a2e;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+// Shared button styles used across components
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &--primary {
+    background: #4361ee;
+    color: #fff;
+    width: 100%;
+    justify-content: center;
+
+    &:hover:not(:disabled) {
+      background: #3a56d4;
+      transform: translateY(-1px);
+    }
+  }
+
+  &--danger {
+    background: #e63946;
+    color: #fff;
+
+    &:hover:not(:disabled) {
+      background: #c1121f;
+    }
+  }
+
+  &--secondary {
+    background: #6c757d;
+    color: #fff;
+    margin-top: 0.75rem;
+
+    &:hover:not(:disabled) {
+      background: #5a6268;
+    }
+  }
+}
+
+// Shared alert styles
+.alert {
+  padding: 0.875rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+
+  &--error {
+    background: #ffe5e5;
+    border: 1px solid #ffb3b3;
+    color: #c1121f;
+  }
+}
+
+// Shared spinner
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+  flex-shrink: 0;
+
+  &--large {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #e0e0e0;
+    border-top-color: #4361ee;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

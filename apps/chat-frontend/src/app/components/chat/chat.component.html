@@ -1,0 +1,81 @@
+@if (!hasJoined()) {
+  <div class="join-screen">
+    <div class="join-card">
+      <h1 class="join-title">Добро пожаловать в чат</h1>
+      <p class="join-subtitle">Введите ваше имя для входа</p>
+      <div class="join-form">
+        <input
+          type="text"
+          class="input"
+          placeholder="Ваше имя"
+          [ngModel]="username()"
+          (ngModelChange)="username.set($event)"
+          (keydown.enter)="join()"
+          autofocus
+        />
+        <button class="btn btn--primary" (click)="join()" [disabled]="!username().trim()">
+          Войти в чат
+        </button>
+      </div>
+    </div>
+  </div>
+} @else {
+  <div class="chat-layout">
+    <header class="chat-header">
+      <div class="chat-header__left">
+        <span class="chat-title">Чат</span>
+        <span class="status-badge" [class.status-badge--online]="isConnected()">
+          {{ isConnected() ? 'онлайн' : 'отключён' }}
+        </span>
+      </div>
+      <span class="chat-user">{{ username() }}</span>
+    </header>
+
+    <div class="chat-messages">
+      @for (msg of messages(); track $index) {
+        @if (msg.type === 'connected') {
+          <div class="message message--system">{{ msg.message }}</div>
+        } @else if (msg.type === 'message') {
+          <div
+            class="message"
+            [class.message--own]="msg.username === username()"
+          >
+            <div class="message__bubble">
+              @if (msg.username !== username()) {
+                <span class="message__author">{{ msg.username }}</span>
+              }
+              <p class="message__text">{{ msg.text }}</p>
+              <span class="message__time">{{ formatTime(msg.timestamp!) }}</span>
+            </div>
+          </div>
+        }
+      }
+      @if (messages().length === 0) {
+        <div class="chat-empty">Сообщений пока нет. Напишите первым!</div>
+      }
+      <div #messagesEnd></div>
+    </div>
+
+    <div class="chat-input-area">
+      <textarea
+        class="input input--textarea"
+        placeholder="Введите сообщение..."
+        rows="1"
+        [ngModel]="messageText()"
+        (ngModelChange)="messageText.set($event)"
+        (keydown)="onKeydown($event)"
+        [disabled]="!isConnected()"
+      ></textarea>
+      <button
+        class="btn btn--send"
+        (click)="sendMessage()"
+        [disabled]="!messageText().trim() || !isConnected()"
+        title="Отправить (Enter)"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+}
