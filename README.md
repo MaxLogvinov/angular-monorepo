@@ -11,12 +11,12 @@ Nx-монорепозиторий с Angular-фронтендами и NestJS-б
 
 ## Проекты
 
-| Приложение | Тип | Порт | Описание |
-|---|---|---|---|
+| Приложение             | Тип     | Порт | Описание                        |
+| ---------------------- | ------- | ---- | ------------------------------- |
 | `auth-interceptor-app` | Angular | 4200 | HTTP-интерсептор с авторизацией |
-| `chat-frontend` | Angular | 4201 | UI чата |
-| `chat-backend` | NestJS | 3000 | WebSocket-сервер чата |
-| `support-api` | NestJS | 3001 | REST API тикет-системы |
+| `chat-frontend`        | Angular | 4201 | UI чата                         |
+| `chat-backend`         | NestJS  | 3000 | WebSocket-сервер чата           |
+| `support-api`          | NestJS  | 3001 | REST API тикет-системы          |
 
 ## Быстрый старт
 
@@ -27,7 +27,7 @@ npm install
 Запуск всех приложений сразу:
 
 ```bash
-npx nx run-many -t serve
+npm run serve
 ```
 
 Запуск одного приложения:

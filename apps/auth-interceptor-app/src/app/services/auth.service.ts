@@ -2,7 +2,12 @@ import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
-import { AuthResponse, LoginRequest, RefreshResponse } from '../models/user.model';
+import {
+  AuthResponse,
+  LoginRequest,
+  RefreshResponse,
+} from '../models/user.model';
+import { environment } from '../../environments/environment';
 
 const ACCESS_TOKEN_KEY = 'access_token';
 const REFRESH_TOKEN_KEY = 'refresh_token';
@@ -11,7 +16,7 @@ const REFRESH_TOKEN_KEY = 'refresh_token';
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
-  private readonly baseUrl = 'https://dummyjson.com/auth';
+  private readonly baseUrl = environment.apiBaseUrl;
 
   readonly isLoggedIn = signal(this.hasTokens());
 

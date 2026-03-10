@@ -1,6 +1,8 @@
 import {
   AfterViewChecked,
+  ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
   inject,
   OnDestroy,
@@ -8,8 +10,8 @@ import {
   signal,
   ViewChild,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { ChatMessage, ChatService } from '../../services/chat.service';
 
 @Component({
@@ -17,12 +19,13 @@ import { ChatMessage, ChatService } from '../../services/chat.service';
   imports: [FormsModule],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild('messagesEnd') private messagesEnd!: ElementRef<HTMLDivElement>;
 
   private readonly chatService = inject(ChatService);
-  private readonly subs = new Subscription();
+  private readonly destroyRef = inject(DestroyRef);
 
   readonly username = signal('');
   readonly messageText = signal('');
@@ -31,16 +34,17 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   readonly hasJoined = signal(false);
 
   ngOnInit(): void {
-    this.subs.add(
-      this.chatService.messages$.subscribe((msg) => {
+    this.chatService.messages$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((msg) => {
         this.messages.update((prev) => [...prev, msg]);
-      }),
-    );
-    this.subs.add(
-      this.chatService.connected$.subscribe((status) => {
+      });
+
+    this.chatService.connected$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((status) => {
         this.isConnected.set(status);
-      }),
-    );
+      });
   }
 
   ngAfterViewChecked(): void {
@@ -75,6 +79,10 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
     });
   }
 
+  trackMessage(msg: ChatMessage): string {
+    return `${msg.timestamp ?? 0}_${msg.username ?? 'system'}`;
+  }
+
   private scrollToBottom(): void {
     try {
       this.messagesEnd?.nativeElement.scrollIntoView({ behavior: 'smooth' });
@@ -84,7 +92,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   ngOnDestroy(): void {
-    this.subs.unsubscribe();
     this.chatService.disconnect();
   }
 }

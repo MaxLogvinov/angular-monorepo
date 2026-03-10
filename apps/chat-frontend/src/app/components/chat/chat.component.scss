@@ -8,24 +8,24 @@
 
 .join-card {
   background: #fff;
-  border-radius: 16px;
+  border-radius: var(--radius-card);
   padding: 2.5rem;
   width: 100%;
   max-width: 400px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-card);
   text-align: center;
 }
 
 .join-title {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #1a1a2e;
+  color: var(--color-text);
   margin-bottom: 0.5rem;
 }
 
 .join-subtitle {
   font-size: 0.95rem;
-  color: #6c757d;
+  color: var(--color-muted);
   margin-bottom: 1.75rem;
 }
 
@@ -64,7 +64,7 @@
 .chat-title {
   font-size: 1.125rem;
   font-weight: 700;
-  color: #1a1a2e;
+  color: var(--color-text);
 }
 
 .status-badge {
@@ -82,7 +82,7 @@
 
 .chat-user {
   font-size: 0.875rem;
-  color: #6c757d;
+  color: var(--color-muted);
   font-weight: 500;
 }
 
@@ -112,7 +112,7 @@
 
     .message__bubble {
       background: #e9ecef;
-      color: #6c757d;
+      color: var(--color-muted);
       font-size: 0.8rem;
       border-radius: 8px;
     }
@@ -122,7 +122,7 @@
     justify-content: flex-end;
 
     .message__bubble {
-      background: #4361ee;
+      background: var(--color-primary);
       color: #fff;
 
       .message__author {
@@ -150,7 +150,7 @@
 .message__author {
   font-size: 0.75rem;
   font-weight: 600;
-  color: #4361ee;
+  color: var(--color-primary);
 }
 
 .message__text {
@@ -194,14 +194,14 @@
   align-items: center;
   justify-content: center;
   padding: 0;
-  background: #4361ee;
+  background: var(--color-primary);
   color: #fff;
   border: none;
   cursor: pointer;
   transition: background 0.2s;
 
   &:hover:not(:disabled) {
-    background: #3a56d4;
+    background: var(--color-primary-hover);
   }
 
   &:disabled {

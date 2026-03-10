@@ -8,17 +8,17 @@
 
 .login-card {
   background: #fff;
-  border-radius: 16px;
+  border-radius: var(--radius-card);
   padding: 2.5rem;
   width: 100%;
   max-width: 420px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-card);
 }
 
 .login-title {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #1a1a2e;
+  color: var(--color-text);
   margin-bottom: 2rem;
   text-align: center;
 }
@@ -38,40 +38,40 @@
 .form-label {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #495057;
+  color: var(--color-muted);
 }
 
 .form-input {
   padding: 0.625rem 0.875rem;
-  border: 1.5px solid #dee2e6;
+  border: 1.5px solid var(--color-border);
   border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.2s, box-shadow 0.2s;
   outline: none;
 
   &:focus {
-    border-color: #4361ee;
-    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-shadow);
   }
 
   &--error {
-    border-color: #e63946;
+    border-color: var(--color-danger);
 
     &:focus {
-      border-color: #e63946;
-      box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.15);
+      border-color: var(--color-danger);
+      box-shadow: 0 0 0 3px var(--color-danger-shadow);
     }
   }
 }
 
 .form-error {
   font-size: 0.8rem;
-  color: #e63946;
+  color: var(--color-danger);
 }
 
 .login-hint {
   font-size: 0.8rem;
-  color: #6c757d;
+  color: var(--color-muted);
   text-align: center;
   margin-top: 0.25rem;
 }

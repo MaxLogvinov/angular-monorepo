@@ -32,7 +32,7 @@
     </header>
 
     <div class="chat-messages">
-      @for (msg of messages(); track $index) {
+      @for (msg of messages(); track trackMessage(msg)) {
         @if (msg.type === 'connected') {
           <div class="message message--system">{{ msg.message }}</div>
         } @else if (msg.type === 'message') {

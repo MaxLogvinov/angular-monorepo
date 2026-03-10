@@ -64,6 +64,9 @@
       ]
     }
   },
+  "tui": {
+    "enabled": false
+  },
   "generators": {
     "@nx/angular:application": {
       "e2eTestRunner": "none",
